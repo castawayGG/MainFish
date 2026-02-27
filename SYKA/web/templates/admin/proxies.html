@@ -1,0 +1,54 @@
+{% extends 'admin/base.html' %}
+{% block title %}Прокси{% endblock %}
+{% block page_title %}Прокси{% endblock %}
+
+{% block content %}
+<div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+    <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-gray-50/50">
+        <h2 class="text-sm font-semibold text-primary uppercase tracking-wider">Список прокси ({{ proxies|length }})</h2>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full whitespace-nowrap text-left text-sm">
+            <thead class="bg-white text-gray-500">
+                <tr>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">ID</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Тип</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Хост:Порт</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Статус</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Скорость</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Последняя проверка</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Включён</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                {% for proxy in proxies %}
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 text-gray-500">{{ proxy.id }}</td>
+                    <td class="px-6 py-4 font-mono text-xs text-gray-600">{{ proxy.type }}</td>
+                    <td class="px-6 py-4 font-medium text-primary">{{ proxy.host }}:{{ proxy.port }}</td>
+                    <td class="px-6 py-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                            {% if proxy.status == 'working' %}bg-green-100 text-green-800
+                            {% elif proxy.status == 'dead' %}bg-red-100 text-red-800
+                            {% elif proxy.status == 'checking' %}bg-yellow-100 text-yellow-800
+                            {% else %}bg-gray-100 text-gray-600{% endif %}">
+                            {{ proxy.status }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-gray-600">{{ proxy.speed ~ ' ms' if proxy.speed else '—' }}</td>
+                    <td class="px-6 py-4 text-gray-500 text-xs">{{ proxy.last_check | timestamp_to_date }}</td>
+                    <td class="px-6 py-4">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium
+                            {% if proxy.enabled %}bg-green-100 text-green-700{% else %}bg-gray-100 text-gray-500{% endif %}">
+                            {{ 'Да' if proxy.enabled else 'Нет' }}
+                        </span>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="7" class="px-6 py-8 text-center text-gray-400">Прокси не найдены</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

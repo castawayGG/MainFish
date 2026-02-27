@@ -1,0 +1,51 @@
+{% extends 'admin/base.html' %}
+{% block title %}Аккаунты{% endblock %}
+{% block page_title %}Аккаунты Telegram{% endblock %}
+
+{% block content %}
+<div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+    <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-gray-50/50">
+        <h2 class="text-sm font-semibold text-primary uppercase tracking-wider">Список аккаунтов ({{ accounts|length }})</h2>
+        <a href="{{ url_for('admin.export_accounts') }}" class="text-sm font-medium text-accent hover:text-blue-700">
+            Экспорт Excel
+        </a>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full whitespace-nowrap text-left text-sm">
+            <thead class="bg-white text-gray-500">
+                <tr>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Телефон</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Username</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Имя</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Статус</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Прокси</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Добавлен</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                {% for account in accounts %}
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 font-medium text-primary">{{ account.phone }}</td>
+                    <td class="px-6 py-4 text-gray-600">{{ account.username or '—' }}</td>
+                    <td class="px-6 py-4 text-gray-600">{{ account.first_name or '' }} {{ account.last_name or '' }}</td>
+                    <td class="px-6 py-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                            {% if account.status == 'active' %}bg-green-100 text-green-800
+                            {% elif account.status == 'banned' %}bg-red-100 text-red-800
+                            {% else %}bg-gray-100 text-gray-600{% endif %}">
+                            {{ account.status }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-gray-500">
+                        {% if account.proxy %}{{ account.proxy.host }}:{{ account.proxy.port }}{% else %}—{% endif %}
+                    </td>
+                    <td class="px-6 py-4 text-gray-500 text-xs">{{ account.created_at | timestamp_to_date }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="6" class="px-6 py-8 text-center text-gray-400">Аккаунты не найдены</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

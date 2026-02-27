@@ -35,3 +35,6 @@ instance/
 
 # Pytest cache
 .pytest_cache/
+
+# Temporary scripts (developer scratch area)
+SYKA/tmp/
