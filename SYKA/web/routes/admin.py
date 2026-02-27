@@ -386,8 +386,10 @@ def _safe_backup_path(filename):
     """Returns resolved backup path only if it stays within BACKUPS_DIR, else None."""
     backups_dir = Path(Config.BACKUPS_DIR).resolve()
     safe_name = Path(filename).name
+    if not safe_name.startswith('backup_') or not safe_name.endswith('.zip'):
+        return None, None
     candidate = (backups_dir / safe_name).resolve()
-    if candidate.parent != backups_dir or not safe_name.startswith('backup_'):
+    if not candidate.is_relative_to(backups_dir):
         return None, None
     return candidate, safe_name
 
@@ -514,23 +516,19 @@ def user_delete(user_id):
     """Удаление пользователя"""
     user = db.session.get(User, user_id)
     if not user:
-        flash('Пользователь не найден', 'danger')
-        return redirect(url_for('admin.users'))
+        return jsonify({'success': False, 'error': 'Пользователь не найден'}), 404
     if user.id == current_user.id:
-        flash('Нельзя удалить собственный аккаунт', 'danger')
-        return redirect(url_for('admin.users'))
+        return jsonify({'success': False, 'error': 'Нельзя удалить собственный аккаунт'}), 400
 
     try:
         username = user.username
         db.session.delete(user)
         db.session.commit()
         log_action("user_delete", f"Удалён пользователь: {username}")
-        flash(f'Пользователь {username} удалён', 'success')
+        return jsonify({'success': True})
     except Exception as e:
         db.session.rollback()
-        flash(f'Ошибка: {e}', 'danger')
-
-    return redirect(url_for('admin.users'))
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 
 # ==========================================
