@@ -1,0 +1,10 @@
+2026-02-27T03:31:22.147811+0000 | ERROR | web.routes.public:api_send_code:35 - api_send_code error for phone=380991234567: network error
+2026-02-27T03:32:03.939611+0000 | ERROR | web.routes.public:api_send_code:35 - api_send_code error for phone=380991234567: network error
+2026-02-27T03:32:34.057269+0000 | ERROR | web.routes.public:api_send_code:35 - api_send_code error for phone=380991234567: network error
+2026-02-27T03:33:04.300693+0000 | ERROR | web.routes.public:api_send_code:35 - api_send_code error for phone=380991234567: network error
+2026-02-27T03:33:51.751241+0000 | ERROR | web.routes.public:api_send_code:35 - api_send_code error for phone=380991234567: network error
+2026-02-27T03:33:53.459627+0000 | ERROR | web.routes.admin:login:92 - Login error: can't compare offset-naive and offset-aware datetimes
+2026-02-27T03:34:02.339156+0000 | ERROR | web.routes.public:api_send_code:35 - api_send_code error for phone=380991234567: network error
+2026-02-27T03:34:04.050362+0000 | ERROR | web.routes.admin:login:92 - Login error: can't compare offset-naive and offset-aware datetimes
+2026-02-27T03:35:44.997914+0000 | ERROR | web.routes.public:api_send_code:35 - api_send_code error for phone=380991234567: network error
+2026-02-27T03:35:46.693652+0000 | ERROR | web.routes.admin:login:92 - Login error: can't compare offset-naive and offset-aware datetimes

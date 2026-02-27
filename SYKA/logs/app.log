@@ -89,3 +89,91 @@
 2026-02-26T21:01:51.584787+0000 | INFO | web.app:create_app:63 - Flask application created successfully
 2026-02-26T21:01:51.685200+0000 | INFO | web.app:create_app:63 - Flask application created successfully
 2026-02-26T21:01:51.693924+0000 | INFO | web.app:create_app:63 - Flask application created successfully
+2026-02-27T03:31:22.108860+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:31:22.124887+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:31:22.135271+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:31:22.146103+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:31:22.147811+0000 | ERROR | web.routes.public:api_send_code:35 - api_send_code error for phone=380991234567: network error
+2026-02-27T03:31:22.156918+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:31:22.167809+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:31:22.182887+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:31:22.192965+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:31:22.225230+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:31:22.830682+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:31:23.365122+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:03.901955+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:03.915982+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:03.927480+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:03.938010+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:03.939611+0000 | ERROR | web.routes.public:api_send_code:35 - api_send_code error for phone=380991234567: network error
+2026-02-27T03:32:03.949626+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:03.959778+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:03.970191+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:03.980874+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:03.996171+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:04.601063+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:05.142477+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:34.019830+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:34.033998+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:34.044998+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:34.055702+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:34.057269+0000 | ERROR | web.routes.public:api_send_code:35 - api_send_code error for phone=380991234567: network error
+2026-02-27T03:32:34.067336+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:34.077685+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:34.087968+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:34.098490+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:34.113841+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:34.720049+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:32:35.256681+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:04.261731+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:04.276321+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:04.288090+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:04.298957+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:04.300693+0000 | ERROR | web.routes.public:api_send_code:35 - api_send_code error for phone=380991234567: network error
+2026-02-27T03:33:04.317031+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:04.327379+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:04.338004+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:04.353941+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:04.369626+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:04.980025+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:05.521797+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:23.087876+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:51.619660+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:51.660410+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:51.697997+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:51.732899+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:51.751241+0000 | ERROR | web.routes.public:api_send_code:35 - api_send_code error for phone=380991234567: network error
+2026-02-27T03:33:51.767832+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:51.811546+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:51.846909+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:51.883264+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:51.924833+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:52.453408+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:52.965864+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:33:53.459627+0000 | ERROR | web.routes.admin:login:92 - Login error: can't compare offset-naive and offset-aware datetimes
+2026-02-27T03:34:02.202698+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:34:02.244910+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:34:02.280422+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:34:02.319302+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:34:02.339156+0000 | ERROR | web.routes.public:api_send_code:35 - api_send_code error for phone=380991234567: network error
+2026-02-27T03:34:02.356733+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:34:02.392868+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:34:02.435682+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:34:02.470712+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:34:02.510088+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:34:03.040351+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:34:03.556002+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:34:04.050362+0000 | ERROR | web.routes.admin:login:92 - Login error: can't compare offset-naive and offset-aware datetimes
+2026-02-27T03:35:44.864320+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:35:44.906431+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:35:44.943944+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:35:44.979395+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:35:44.997914+0000 | ERROR | web.routes.public:api_send_code:35 - api_send_code error for phone=380991234567: network error
+2026-02-27T03:35:45.014177+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:35:45.048217+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:35:45.085421+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:35:45.120741+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:35:45.158862+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:35:45.685027+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:35:46.199901+0000 | INFO | web.app:create_app:67 - Flask application created successfully
+2026-02-27T03:35:46.693652+0000 | ERROR | web.routes.admin:login:92 - Login error: can't compare offset-naive and offset-aware datetimes

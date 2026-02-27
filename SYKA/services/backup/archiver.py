@@ -29,11 +29,6 @@ def create_backup():
                 if f.exists():
                     zf.write(f, arcname=f"logs/{log_file}")
 
-        # Добавляем файл статистики (если есть)
-        stats_db = Path(Config.STATS_DB_PATH)
-        if stats_db.exists():
-            zf.write(stats_db, arcname="stats.json")
-
     log.info(f"Backup created: {backup_path}")
     return backup_path
 

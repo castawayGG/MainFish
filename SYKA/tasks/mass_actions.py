@@ -4,9 +4,8 @@ from core.database import SessionLocal
 from models.account import Account
 from models.campaign import Campaign
 from core.logger import log
-from sqlalchemy.sql import func
+from datetime import datetime, timezone
 import asyncio
-import json
 
 @shared_task(bind=True, max_retries=3)
 def send_bulk_messages_task(self, account_id: str, contacts: list, base_text: str, variations: list):
@@ -52,8 +51,19 @@ def run_campaign(campaign_id: int):
         if not campaign or campaign.status != 'running':
             return
 
-        targets = json.loads(campaign.target_list)
-        variations = json.loads(campaign.variations) if campaign.variations else []
+        # JSON columns are already deserialised by SQLAlchemy; avoid double-decoding
+        if not isinstance(campaign.target_list, list):
+            log.warning(
+                f"Campaign {campaign_id}: target_list is not a list "
+                f"(type={type(campaign.target_list).__name__}), treating as empty"
+            )
+        targets = campaign.target_list if isinstance(campaign.target_list, list) else []
+        if campaign.variations is not None and not isinstance(campaign.variations, list):
+            log.warning(
+                f"Campaign {campaign_id}: variations is not a list "
+                f"(type={type(campaign.variations).__name__}), treating as empty"
+            )
+        variations = campaign.variations if isinstance(campaign.variations, list) else []
         message = campaign.message_template
 
         accounts = db.query(Account).filter(Account.status == 'active').all()
@@ -67,7 +77,7 @@ def run_campaign(campaign_id: int):
 
         # Корректное завершение кампании
         campaign.status = 'completed'
-        campaign.completed_at = func.now()
+        campaign.completed_at = datetime.now(timezone.utc)
         db.commit()
         
     except Exception as e:
