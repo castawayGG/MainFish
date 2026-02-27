@@ -1,7 +1,8 @@
 from flask import Flask
 from core.config import Config
+from core.database import engine, Base
 from core.logger import log
-from web.extensions import db, login_manager, limiter, migrate
+from web.extensions import db, login_manager, limiter
 from web.middlewares.auth import load_user
 from web.middlewares.ip_whitelist import whitelist_middleware
 
@@ -14,20 +15,17 @@ from models.stat import Stat
 from models.admin_log import AdminLog
 from models.task import Task
 
-def create_app(test_config: dict = None):
+def create_app():
     app = Flask(__name__,
                 template_folder='templates',
                 static_folder='static',
                 static_url_path='/static')
     
     app.config.from_object(Config)
-    if test_config:
-        app.config.update(test_config)
     
     db.init_app(app)
     login_manager.init_app(app)
     limiter.init_app(app)
-    migrate.init_app(app, db)
     
     login_manager.login_view = 'admin.login'
     login_manager.login_message = 'Пожалуйста, войдите для доступа к этой странице.'
@@ -49,20 +47,20 @@ def create_app(test_config: dict = None):
     app.register_blueprint(admin_bp, url_prefix='/admin')
     app.register_blueprint(api_bp, url_prefix='/api')
     
-    # Skip auto-setup when running tests; fixtures handle DB initialisation.
-    if not test_config:
-        with app.app_context():
-            db.create_all()
-            
-            if not db.session.query(User).first() and Config.ADMIN_USERNAME and Config.ADMIN_PASSWORD_HASH:
-                admin = User(
-                    username=Config.ADMIN_USERNAME,
-                    role='superadmin'
-                )
-                admin.password_hash = Config.ADMIN_PASSWORD_HASH
-                db.session.add(admin)
-                db.session.commit()
-                log.info(f"Initial admin created: {Config.ADMIN_USERNAME}")
+    with app.app_context():
+        Base.metadata.create_all(bind=engine)
+        
+        if not db.session.query(User).first() and Config.ADMIN_USERNAME and Config.ADMIN_PASSWORD_HASH:
+            admin = User(
+                username=Config.ADMIN_USERNAME,
+                role='superadmin'
+            )
+            admin.password_hash = Config.ADMIN_PASSWORD_HASH
+            db.session.add(admin)
+            db.session.commit()
+            log.info(f"Initial admin created: {Config.ADMIN_USERNAME}")
     
     log.info("Flask application created successfully")
     return app
+
+app = create_app()
