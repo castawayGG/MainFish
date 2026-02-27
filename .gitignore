@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment files
+.env
+
+# SQLite databases
+*.db
+*.sqlite3
+
+# Logs (runtime-generated)
+SYKA/logs/app.log
+SYKA/logs/errors.log
+SYKA/logs/json.log
+
+# Backups and sessions
+SYKA/backups/
+SYKA/sessions/
+
+# Flask instance folder
+instance/
+
+# Pytest cache
+.pytest_cache/
