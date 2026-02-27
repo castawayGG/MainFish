@@ -1,0 +1,59 @@
+{% extends 'admin/base.html' %}
+{% block title %}Пользователи{% endblock %}
+{% block page_title %}Пользователи системы{% endblock %}
+
+{% block content %}
+<div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+    <div class="px-6 py-4 border-b border-gray-200 bg-gray-50/50">
+        <h2 class="text-sm font-semibold text-primary uppercase tracking-wider">Администраторы ({{ users|length }})</h2>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full whitespace-nowrap text-left text-sm">
+            <thead class="bg-white text-gray-500">
+                <tr>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">ID</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Имя пользователя</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Роль</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Активен</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">2FA</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Последний вход</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Создан</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                {% for user in users %}
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 text-gray-500">{{ user.id }}</td>
+                    <td class="px-6 py-4 font-medium text-primary">
+                        {{ user.username }}
+                        {% if user.id == current_user.id %}<span class="ml-2 text-xs text-blue-500">(вы)</span>{% endif %}
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                            {% if user.role == 'superadmin' %}bg-purple-100 text-purple-800
+                            {% else %}bg-blue-100 text-blue-800{% endif %}">
+                            {{ user.role }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium
+                            {% if user.is_active %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-600{% endif %}">
+                            {{ 'Да' if user.is_active else 'Нет' }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="text-xs {% if user.otp_secret %}text-green-600{% else %}text-gray-400{% endif %}">
+                            {{ 'Включена' if user.otp_secret else 'Отключена' }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-gray-500 text-xs">{{ user.last_login | timestamp_to_date }}</td>
+                    <td class="px-6 py-4 text-gray-500 text-xs">{{ user.created_at | timestamp_to_date }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="7" class="px-6 py-8 text-center text-gray-400">Пользователи не найдены</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

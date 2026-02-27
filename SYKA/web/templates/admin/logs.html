@@ -1,0 +1,65 @@
+{% extends 'admin/base.html' %}
+{% block title %}Логи{% endblock %}
+{% block page_title %}Журнал действий{% endblock %}
+
+{% block content %}
+<div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+    <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-gray-50/50">
+        <h2 class="text-sm font-semibold text-primary uppercase tracking-wider">Журнал действий администраторов</h2>
+        <div class="flex items-center space-x-2">
+            <form method="GET" class="flex items-center space-x-2">
+                <select name="action" class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-accent">
+                    <option value="">Все действия</option>
+                    {% for action in actions %}
+                    <option value="{{ action }}" {% if request.args.get('action') == action %}selected{% endif %}>{{ action }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="text-sm text-accent hover:text-blue-700 font-medium">Фильтр</button>
+            </form>
+        </div>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full whitespace-nowrap text-left text-sm">
+            <thead class="bg-white text-gray-500">
+                <tr>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Время</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Пользователь</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Действие</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">Детали</th>
+                    <th class="px-6 py-3 font-medium border-b border-gray-200">IP</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                {% for entry in logs.items %}
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-3 text-gray-500 text-xs">{{ entry.timestamp | timestamp_to_date }}</td>
+                    <td class="px-6 py-3 font-medium text-primary">{{ entry.username }}</td>
+                    <td class="px-6 py-3">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+                            {{ entry.action }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-3 text-gray-600 text-xs max-w-xs truncate">{{ entry.details or '—' }}</td>
+                    <td class="px-6 py-3 font-mono text-xs text-gray-500">{{ entry.ip }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="5" class="px-6 py-8 text-center text-gray-400">Записи не найдены</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% if logs.pages > 1 %}
+    <div class="px-6 py-4 border-t border-gray-200 flex items-center justify-between text-sm text-gray-500 bg-gray-50/50">
+        <div>Страница {{ logs.page }} из {{ logs.pages }}</div>
+        <div class="flex space-x-1">
+            {% if logs.has_prev %}
+            <a href="{{ url_for('admin.logs', page=logs.prev_num) }}" class="px-3 py-1 border border-gray-200 rounded hover:bg-white">Пред</a>
+            {% endif %}
+            {% if logs.has_next %}
+            <a href="{{ url_for('admin.logs', page=logs.next_num) }}" class="px-3 py-1 border border-gray-200 rounded hover:bg-white">След</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
