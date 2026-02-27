@@ -1,4 +1,5 @@
 import datetime
+from datetime import timezone
 import io
 import zipfile
 import json
@@ -13,6 +14,7 @@ from models.admin_log import AdminLog
 from models.campaign import Campaign
 from models.stat import Stat
 from web.middlewares.auth import admin_required
+from core.logger import log
 
 admin_bp = Blueprint('admin', __name__)
 
@@ -31,7 +33,7 @@ def log_action(action, details=""):
         db.session.commit()
     except Exception as e:
         db.session.rollback()
-        print(f"Logging error: {e}")
+        log.error(f"Logging error: {e}")
 
 # ==========================================
 # 1. АВТОРИЗАЦИЯ
@@ -52,15 +54,16 @@ def login():
             user = db.session.execute(select(User).filter_by(username=username)).scalar_one_or_none()
             
             if user and user.check_password(password):
+                now = datetime.datetime.now(timezone.utc)
+
+                # Проверка блокировки аккаунта (до завершения аутентификации)
+                if user.locked_until and user.locked_until > now:
+                    flash('Аккаунт временно заблокирован', 'danger')
+                    return render_template('admin/login.html')
+
                 # Проверка 2FA (если включена)
                 if user.otp_secret and not user.verify_otp(otp):
                     flash('Неверный код 2FA', 'danger')
-                    return render_template('admin/login.html')
-                
-                # Проверка блокировки аккаунта
-                now = datetime.datetime.utcnow()
-                if user.locked_until and user.locked_until > now:
-                    flash('Аккаунт временно заблокирован', 'danger')
                     return render_template('admin/login.html')
                 
                 # Успешный вход
@@ -76,14 +79,17 @@ def login():
                 if user:
                     user.login_attempts += 1
                     if user.login_attempts >= 5:
-                        user.locked_until = datetime.datetime.utcnow() + datetime.timedelta(minutes=15)
+                        user.locked_until = (
+                            datetime.datetime.now(timezone.utc)
+                            + datetime.timedelta(minutes=15)
+                        )
                     db.session.commit()
                 
                 flash('Неверное имя пользователя или пароль', 'danger')
         except Exception as e:
             db.session.rollback()
             flash('Ошибка сервера при входе', 'danger')
-            print(f"Login error: {e}")
+            log.error(f"Login error: {e}")
             
     return render_template('admin/login.html')
 
@@ -124,7 +130,7 @@ def dashboard():
                              recent_logs=recent_logs, 
                              today_stat=today_stat)
     except Exception as e:
-        print(f"Dashboard error: {e}")
+        log.error(f"Dashboard error: {e}")
         return "Ошибка при загрузке панели управления. Проверьте логи сервера.", 500
 
 # ==========================================

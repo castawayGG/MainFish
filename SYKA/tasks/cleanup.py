@@ -2,7 +2,7 @@ from celery import shared_task
 from core.database import SessionLocal
 from models.admin_log import AdminLog
 from models.stat import Stat
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from core.logger import log
 
 @shared_task
@@ -12,7 +12,7 @@ def cleanup_old_logs(days: int = 30):
     """
     db = SessionLocal()
     try:
-        cutoff = datetime.utcnow() - timedelta(days=days)
+        cutoff = datetime.now(timezone.utc) - timedelta(days=days)
         deleted = db.query(AdminLog).filter(AdminLog.timestamp < cutoff).delete()
         db.commit()
         log.info(f"Cleaned up {deleted} old admin logs")

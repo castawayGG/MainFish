@@ -31,17 +31,17 @@ class ProxyManager:
 
     async def _refresh_cache_if_needed(self):
         """Обновляет кеш, если истёк интервал обновления."""
-        now = asyncio.get_event_loop().time()
+        now = asyncio.get_running_loop().time()
         if now - self._last_refresh > self._refresh_interval:
             await self._refresh_cache()
 
     async def _refresh_cache(self):
         """Загружает список рабочих прокси из базы данных."""
-        loop = asyncio.get_event_loop()
+        loop = asyncio.get_running_loop()
         # Выполняем запрос к БД в отдельном потоке, чтобы не блокировать event loop
         proxies = await loop.run_in_executor(None, self._fetch_working_proxies)
         self._working_proxies = proxies
-        self._last_refresh = asyncio.get_event_loop().time()
+        self._last_refresh = asyncio.get_running_loop().time()
         log.info(f"Proxy cache refreshed: {len(proxies)} working proxies")
 
     def _fetch_working_proxies(self) -> list[Proxy]:

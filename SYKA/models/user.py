@@ -4,7 +4,7 @@ from sqlalchemy.sql import func
 from core.database import Base
 import bcrypt
 import pyotp
-from datetime import datetime
+from datetime import datetime, timezone
 
 class User(Base):
     """
@@ -50,7 +50,7 @@ class User(Base):
         Проверяет, заблокирован ли вход для пользователя.
         Сравнивает текущее время UTC со временем окончания блокировки.
         """
-        if self.locked_until and self.locked_until > datetime.utcnow():
+        if self.locked_until and self.locked_until > datetime.now(timezone.utc):
             return True
         return False
 

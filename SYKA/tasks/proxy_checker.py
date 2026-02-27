@@ -11,10 +11,7 @@ def check_proxy_task(self, proxy_id: int):
     Фоновая задача для проверки одного прокси.
     """
     try:
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        loop.run_until_complete(async_check_proxy(proxy_id))
-        loop.close()
+        asyncio.run(async_check_proxy(proxy_id))
         return {'success': True, 'proxy_id': proxy_id}
     except Exception as e:
         log.error(f"check_proxy_task for proxy {proxy_id} failed: {e}")

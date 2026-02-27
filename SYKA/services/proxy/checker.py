@@ -1,5 +1,6 @@
 import asyncio
 import time
+from datetime import datetime, timezone
 from telethon import TelegramClient, errors, functions
 from telethon.sessions import StringSession
 from core.config import Config
@@ -59,7 +60,7 @@ async def check_proxy_task(proxy_id: int):
         success, speed, error = await test_proxy(proxy)
         
         proxy.status = 'working' if success else 'dead'
-        proxy.last_check = db.func.now()
+        proxy.last_check = datetime.now(timezone.utc)
         if speed:
             proxy.speed = speed
             # Обновляем среднюю скорость (экспоненциальное скользящее среднее)
